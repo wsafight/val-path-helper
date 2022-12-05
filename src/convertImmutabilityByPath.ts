@@ -2,13 +2,13 @@ import { isObj } from "./utils"
 
 export const convertImmutabilityByPath = (
   path: string,
-  value: Record<string, any>
+  actions: Record<string, any>
 ) => {
   if (typeof path !== 'string' || !path) {
     return {}
   }
 
-  if (!value || !isObj(value)) {
+  if (!actions || !isObj(actions)) {
     return {}
   }
   const keys = path.replace(/\[/g, '.')
@@ -22,7 +22,7 @@ export const convertImmutabilityByPath = (
   const len = keys.length
   
   keys.forEach((key: string, index: number) => {
-    current[key] = index === len - 1 ? value : {}
+    current[key] = index === len - 1 ? actions : {}
     current = current[key]
   })
 
